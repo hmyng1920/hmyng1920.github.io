@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura - Intelligent IEQ Analytics</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+
+    <div class="page-background">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="main-nav">
+                <a href="#" class="logo">Aura</a>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#demo">Live Demo</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <a href="#contact" class="cta-button primary">Request a Demo</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container text-center">
+                <h1 class="hero-title">Transform Your Workspace with Intelligent Environmental Insights</h1>
+                <p class="hero-subtitle">Aura empowers you to understand and optimize your building's Indoor Environmental Quality (IEQ), boosting productivity and enhancing wellbeing for everyone.</p>
+                <div class="hero-cta">
+                    <a href="#demo" class="cta-button primary large">Explore the Live Demo</a>
+                    <a href="#contact" class="cta-button secondary large">Get Started Free</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="ieq-problem" class="content-section">
+            <div class="container">
+              <!-- Flex container for text + mindmap -->
+                <div class="split-content">
+                    <!-- Left column: text -->
+                    <div class="split-text">
+                        <div class="section-header">
+                            <span class="section-tag">The Problem</span>
+                            <h2>IEQ is Invisible, But Costly</h2>
+                            <p>
+                            Many assume air, temperature, light, and sound have little to do with how we perform at work.
+                            But these factors, when overlooked, quietly erode wellbeing and output — a phenomenon known as
+                            <strong>Sick Building Syndrome</strong> (SBS), symptoms like headaches, fatigue, and brain fog that 
+                            lead to absenteeism and cognitive loss.
+                            </p>
+                        </div>
+                    </div>
+            
+                    <!-- Right column: mindmap -->
+                    <div class="mindmap-wrapper">
+                        <div id="sbs-mindmap" style="height: 500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+          
+        <section id="ieq-cost" class="content-section">
+            <div class="container">
+            <!-- Flex container for text + graph -->
+                <div class="split-content">
+                <!-- Left column: copywriting -->
+                    <div class="split-text">
+                        <div class="section-header">
+                            <span class="section-tag">The Hidden Cost</span>
+                            <h2>How Much Is Poor IEQ Really Costing You?</h2>
+                            <p>From productivity loss to avoidable sick days, IEQ has real economic impact.</p>
+                        </div>
+                    </div>
+            <!-- Right column: single card with toggle + two charts -->
+                    <div class="split-visual scroll-reveal-right">
+                        <div class="toggle-card">
+                        <!-- Toggle buttons -->
+                            <div class="toggle-buttons-cost">
+                                <button id="toggle-savings" class="toggle-btn active">Savings</button>
+                                <button id="toggle-cognitive" class="toggle-btn">Cognitive Gains</button>
+                            </div>
+                        <!-- Card 1: Real-World Impact (Savings) -->
+                            <div id="card-savings" class="feature-card-non-hover card-visible">
+                                <h3>Real-World Impact</h3>
+                                <p>Improved indoor air quality could save the U.S. economy billions annually through reduced illness and enhanced cognitive function.</p>
+                                <div id="ieq-cost-chart"></div>
+                            </div>
+                        <!-- </div> -->
+                        <!-- Card 2: Why It Matters (Cognitive) -->
+                            <div id="card-cognitive" class="feature-card-non-hover card-hidden">
+                                <h3>Why It Matters</h3>
+                                <p>Higher cognitive performance means better focus, faster decision‐making, and fewer errors. Even a small percent gain can translate to huge productivity wins when scaled across a workforce.</p>
+                                <div id="cognitive-scatter"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        
+  
+          
+          <!-- From Overwhelming to Understandable -->
+          <section id="ieq-accessibility" class="content-section">
+            <div class="container">
+                <!-- Flex container for text + mindmap -->
+                <div class="split-content">
+                    <!-- Left column: text -->
+                    <div class="split-text">
+                        <div class="section-header">
+                            <span class="section-tag">Why Aura</span>
+                            <h2>From Overwhelming to Understandable</h2>
+                            <p>IEQ systems like SAMBA provide powerful data, but not everyone can read a CSV file. Aura makes this information easy to understand for technical and non-technical users alike.</p>
+                        </div>
+                    </div>    
+                    <div class="toggle-container">
+                        <div class="toggle-buttons">
+                        <button id="toggle-raw" class="toggle-button active">Raw Sensor Data</button>
+                        <button id="toggle-translated" class="toggle-button">Aura Insights</button>
+                    </div>
+                    <div id="toggle-content" class="toggle-content">
+                        <pre id="raw-data">
+                            co2: 973 ppm
+                            ta: 25.1°C
+                            lux: 238
+                            spl: 58 dB
+                        </pre>
+                      <div id="translated-data" style="display:none;">
+                        <p>🔻 Productivity: <strong>-6%</strong></p>
+                        <p>⚠️ SBS Risk: <strong>High</strong></p>
+                        <p>📍 Main Issues: <strong>Poor light and high noise levels</strong></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+
+        <section id="features" class="features-section">
+            <div class="container">
+                 <div class="section-header">
+                    <span class="section-tag">The Aura Advantage</span>
+                    <h2>Unlock a Healthier, More Productive Environment</h2>
+                    <p>Aura provides clear, actionable insights from your existing IEQ sensors, making it easy to identify issues and implement targeted improvements.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Visual Floorplan Heatmaps</h3>
+                        <p>Instantly identify high-performance zones and areas needing attention with dynamic heatmaps visualising productivity potential and Sick Building Syndrome (SBS) risk.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📉</div>
+                        <h3>Detailed Zone Analytics</h3>
+                        <p>Dive deep into specific zones. Analyse hourly IEQ trends for any selected day, and understand their direct impact on performance metrics.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📅</div>
+                        <h3>Daily Trend Analysis</h3>
+                        <p>Utilise the interactive date slider to select a specific day and explore how environmental conditions changed hour-by-hour, uncovering patterns for optimisation.</p>
+                    </div>
+                     <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Risk Breakdowns Visuals</h3>
+                        <p>Clearly understand the main contributors to SBS risk (e.g., CO₂ vs. lighting) with intuitive charts, enabling focused and effective interventions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="demo-section">
+            <div class="container">
+                 <div class="section-header">
+                    <span class="section-tag">Experience Aura</span>
+                    <h2>See Your Building Data Come to Life</h2>
+                    <p>Interact with our live demo below. Click on different zones in the floorplan to see detailed stats and graphs.</p>
+                </div>
+                <div class="dashboard-container-embed">
+                    <div class="content-wrapper">
+                        <div class="floorplan-area">
+                            <div class="floorplan-header-controls">
+                                <h3 class="floorplan-header">Floor performance</h3>
+                                <div class="floorplan-toggles">
+                                    <label class="toggle-label">
+                                        <input type="radio" name="floorplanMetric" value="productivity" checked> Productivity
+                                    </label>
+                                    <label class="toggle-label">
+                                        <input type="radio" name="floorplanMetric" value="sbs"> SBS Risk
+                                    </label>
+                                </div>
+                            </div>
+                             <svg id="floorplan" viewBox="0 0 400 300" aria-labelledby="floorplanTitle" role="img">
+                                <!-- <title id="floorplanTitle">Interactive Building Floorplan - Floor 0</title> -->
+                                <rect x="1" y="1" width="398" height="298" fill="none" stroke="#bbb" stroke-width="0.5"/>
+                                <g class="zone" id="zone-402" data-zone-id="402" tabindex="0" role="button" aria-label="Zone 402">
+                                    <path id="zone-zone402-bg" d="M10,10 H150 V120 H10 Z" />
+                                    <text x="80" y="50" text-anchor="middle" class="zone-label-main">Zone 402</text>
+                                    <text id="zone402-snapshot" x="80" y="80" text-anchor="middle" class="zone-data productivity-data"></text>
+                                    <!-- <text x="80" y="65" text-anchor="middle" class="zone-data sbs-data"></text> -->
+                                </g>
+                                <g class="zone" id="zone-403" data-zone-id="403" tabindex="0" role="button" aria-label="Zone 403">
+                                    <path id="zone-zone403-bg" d="M10,130 H150 V220 H10 Z" />
+                                    <text x="80" y="160" text-anchor="middle" class="zone-label-main">Zone 403</text>
+                                    <text id="zone403-snapshot" x="80" y="190" text-anchor="middle" class="zone-data productivity-data"></text>
+                                    <!-- <text x="80" y="185" text-anchor="middle" class="zone-data sbs-data"></text> -->
+                                </g>
+                                 <g class="zone" id="zone-243" data-zone-id="243" tabindex="0" role="button" aria-label="Zone 243">
+                                    <path id="zone-zone243-bg" d="M160,130 H230 V220 H160 Z" />
+                                    <text x="195" y="160" text-anchor="middle" class="zone-label-main">Zone 243</text>
+                                    <text id="zone243-snapshot" x="195" y="190" text-anchor="middle" class="zone-data productivity-data"></text>
+                                    <!-- <text x="195" y="185" text-anchor="middle" class="zone-data sbs-data"></text> -->
+                                </g>
+                                <g class="zone" id="zone-431" data-zone-id="431" tabindex="0" role="button" aria-label="Zone 431">
+                                    <path id="zone-zone431-bg" d="M160,10 H280 V120 H160 Z" />
+                                    <text x="220" y="50" text-anchor="middle" class="zone-label-main">Zone 431</text>
+                                    <text id="zone431-snapshot" x="220" y="80" text-anchor="middle" class="zone-data productivity-data"></text>
+                                    <!-- <text x="220" y="65" text-anchor="middle" class="zone-data sbs-data"></text> -->
+                                </g>
+                                <g class="zone" id="zone-430" data-zone-id="430" tabindex="0" role="button" aria-label="Zone 430">
+                                    <path id="zone-zone430-bg" d="M10,230 H230 V290 H10 Z" />
+                                    <text x="120" y="250" text-anchor="middle" class="zone-label-main">Zone 430</text>
+                                    <text id="zone430-snapshot" x="120" y="275" text-anchor="middle" class="zone-data productivity-data"></text>
+                                    <!-- <text x="120" y="280" text-anchor="middle" class="zone-data sbs-data"></text> -->
+                                </g>
+                                <rect x="240" y="130" width="150" height="160" fill="#f0f0f0" stroke="#ccc" stroke-width="0.5"/>
+                                <text x="315" y="210" text-anchor="middle" font-size="10" fill="#aaa">Other Areas</text>
+                                <rect x="290" y="10" width="100" height="110" fill="#f0f0f0" stroke="#ccc" stroke-width="0.5"/>
+                                <text x="340" y="65" text-anchor="middle" font-size="10" fill="#aaa">Stairs/Util</text>
+                            </svg>
+
+                            <div style="border-top: 1px solid rgba(0,0,0,0.0); width: 100%; margin-bottom: 0.5rem; margin-top: 0.5rem" >
+                            </div>
+
+                            <div class="timeline-slider-container">
+                               <label id='date-slider-label' for="dateSlider" class="slider-label">Date Filter:</label>
+                               <input type="range" min="0" max="9" value="4" class="slider" id="dateSlider" aria-label="Date range slider">
+                               <div class="time-labels"> <span id="slider-start-date-label">Day 1</span>
+                                   <span id="slider-mid-date-label">Day 5</span>
+                                   <span id="slider-end-date-label">Day 10</span>
+                               </div>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-panel-main collapsed" id="dashboard-panel" role="region" aria-labelledby="dashboardPanelTitle">
+                            <h3 id="dashboardPanelTitle" class="zone-title-panel">Zone Details</h3>
+                             <div class="mobile-zone-selector-container">
+                                <label for="zoneSelectorMobile" class="sr-only">Select Zone:</label>
+                                 <select id="zoneSelectorMobile" class="zone-selector-mobile">
+                                    </select>
+                            </div>
+                            <div class="metrics-grid" id="zone-details-placeholder" role="tabpanel">
+                                <div class="metric-card productivity-card">
+                                    <span class="metric-value" id="productivity-gain">...</span>
+                                    <span class="metric-label">Productivity Gains</span>
+                                </div>
+                                <div class="metric-card hours-card">
+                                    <span class="metric-value" id="saved-hours">...</span>
+                                    <span class="metric-label">Saved per employee/hour</span>
+                                </div>
+                            </div>
+                            <div class="metrics-grid" id="zone-details-placeholder" role="tabpanel">
+                                 <div class="metric-card absent-card">
+                                    <span class="metric-value" id="absenteeism">...</span>
+                                    <span class="metric-label">Reduced Absenteeism</span>
+                                </div>
+                                <div class="metric-card risk-card">
+                                     <span class="metric-value" id="sbs-risk">...</span>
+                                     <span class="metric-label">Daily SBS Risk</span>
+                                     <div class="risk-level">...</div>
+                                </div>
+                            </div>
+
+                            <div style="border-top: 1px solid rgba(0,0,0,0.0); width: 100%; margin-bottom: 0.5rem" >
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.05); width: 100%; padding-bottom: 1rem; padding-top: 1rem; border-radius: var(--border-radius-small); background-color: rgba(255, 255, 255)" >  
+                            <div style="text-align: center;"><h4 class="chart-title" id="time-series-chart-title">Hourly IEQ Trends for Selected Day</h4></div>
+
+                            <div class="chart-container time-series-chart-container">
+                                <!-- <h4 class="chart-title" id="time-series-chart-title">Hourly IEQ Trends for Selected Day</h4> -->
+                                <div class="chart-controls-overlay">
+                                    <div class="chart-dropdown-group">
+                                        <label for="leftYAxisSelect" class="chart-dropdown-label sr-only">IEQ Variable:</label>
+                                        <select id="leftYAxisSelect" class="chart-dropdown" aria-label="Select IEQ Variable for Left Axis">
+                                            <option value="co2Data">CO₂ Levels (ppm)</option>
+                                            <option value="temperatureData">Temperature (°C)</option>
+                                            <option value="humidityData">Humidity (%)</option>
+                                            <option value="lightData">Light Intensity (lux)</option>
+                                            <option value="noiseData">Noise Levels (dB)</option>
+                                        </select>
+                                    </div>
+                                    <div class="chart-dropdown-group">
+                                        <label for="rightYAxisSelect" class="chart-dropdown-label sr-only">Outcome Metric:</label>
+                                        <select id="rightYAxisSelect" class="chart-dropdown" aria-label="Select Outcome Metric for Right Axis">
+                                            <option value="productivityData">Productivity Index</option>
+                                            <option value="sbsRiskTimeSeriesData">SBS Risk Over Time (%)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="time-series-chart"></div>
+                            </div>
+                        </div>  
+                            <div style="border-top: 1px solid rgba(0,0,0,0.0); width: 100%; margin-bottom: 0.5rem;  margin-top: 0.5rem;" >
+                            </div>
+                            <div style="border: 1px solid rgba(0,0,0,0.05); width: 100%; height: 100%; padding-bottom: 1rem; padding-top: 1rem; border-radius: var(--border-radius-small); background-color: rgba(255, 255, 255)" >  
+                            <div class="chart-container">
+                                <h4 class="chart-title" style="text-align: center;">Main Contributors to Overall SBS Risk</h4>
+                                <div id="sbs-pie-chart"></div>
+                            </div>
+                        </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-aura" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Empower Your People</span>
+                    <h2>Why Choose Aura for Your Building?</h2>
+                </div>
+                <div class="why-aura-grid">
+                    <div class="why-aura-item">
+                        <h5>For Office Workers:</h5>
+                        <p>Gain transparency into how your workspace affects your daily health and focus. Aura helps you understand your environment, enabling you to advocate for better conditions and find optimal work zones.</p>
+                    </div>
+                    <div class="why-aura-item">
+                        <h5>For Building Managers:</h5>
+                        <p>Move beyond reactive maintenance. Proactively identify underperforming zones, justify investments in IEQ improvements with clear data, and demonstrate commitment to occupant wellbeing and operational efficiency.</p>
+                    </div>
+                     <div class="why-aura-item">
+                        <h5>For Employers:</h5>
+                        <p>Invest in your most valuable asset - your people. By optimising IEQ, you can reduce sick days, boost employee morale and retention, and unlock significant productivity gains across your organisation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="contact" class="cta-final-section">
+            <div class="container text-center">
+                <h2>Ready to Create a Smarter, Healthier Workplace?</h2>
+                <p>Discover how Aura can revolutionise your building's performance. Schedule a personalised demo today and receive a complimentary IEQ snapshot analysis for your facility.</p>
+                <a href="#" class="cta-button primary large">Book Your Personalised Demo</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">Aura</div>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+                <div class="footer-social">
+                    </div>
+            </div>
+            <p class="copyright-text">&copy; 2025 Aura Environmental Analytics. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
